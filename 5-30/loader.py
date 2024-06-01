@@ -49,7 +49,6 @@ class BVHLoader:
                 i += 1
                 continue
             if not hierarchy_parsed:
-                print(12)
                 print(f"Parsing hierarchy at line {i}: {line.strip()}")
                 self.root, i = self.parse_hierarchy(lines, i)
                 print(3)
@@ -63,12 +62,10 @@ class BVHLoader:
     def parse_hierarchy(self, lines, i, level=0):
         line = lines[i].strip()
         parts = line.split()
-        print(13)
         print(f"parse_hierarchy: line {i}, parts: {parts}")
         node = None
 
         if parts[0] == "ROOT" or parts[0] == "JOINT":
-            print(1)
             node = Node(parts[1])
             print(f"Creating node: {node.name}")
             i += 1  # スキップして { の行を読み取る
@@ -79,14 +76,12 @@ class BVHLoader:
             i += 1
             node.channels = lines[i].strip().split()[2:]
             i += 1
-            print(2)
 
             # 深さ優先のノード解析のループ
             while i < len(lines):
                 line = lines[i].strip()
                 if line == '}':
                     i += 1  # '}' をスキップして次の行に進む
-                    print(19)
                     break
                 elif "JOINT" in line or "End" in line:
                     # 関数を再帰的に呼び出し、子ノードを解析
@@ -97,7 +92,6 @@ class BVHLoader:
 
         # 終端ノードの解析
         elif parts[0] == "End":
-            print(4)
             node = Node("End Site")
             i += 1  # スキップして { の行を読み取る
             if lines[i].strip() != "{":
@@ -130,7 +124,6 @@ class BVHLoader:
         return list(map(float, line.strip().split()))
     
     def parse_motion(self, lines):
-        print(6)
         self.frames = []
         frame_lines = []
 
