@@ -122,7 +122,7 @@ class BVHLoader:
         
     def parse_frame(self, line):
         return list(map(float, line.strip().split()))
-    
+
     def parse_motion(self, lines):
         self.frames = []
         frame_lines = []
