@@ -158,15 +158,6 @@ def update_node_position(node, frame_data, index, parent_position, parent_rotati
         x_pos, y_pos, z_pos = 0, 0, 0
         x_rot, y_rot, z_rot = 0, 0, 0
 
-        if "Xposition" in node.channels and index < len(frame_data):
-            x_pos = frame_data[index]
-            index += 1
-        if "Yposition" in node.channels and index < len(frame_data):
-            y_pos = frame_data[index]
-            index += 1
-        if "Zposition" in node.channels and index < len(frame_data):
-            z_pos = frame_data[index]
-            index += 1
         if "Xrotation" in node.channels and index < len(frame_data): 
             x_rot = frame_data[index]
             index += 1
