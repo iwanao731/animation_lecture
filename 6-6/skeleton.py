@@ -155,7 +155,6 @@ def draw_skeleton(ax, node, parent_position=None):
 def update_node_position(node, frame_data, index, parent_position, parent_rotation):
     if node.channels:
         
-        x_pos, y_pos, z_pos = 0, 0, 0
         x_rot, y_rot, z_rot = 0, 0, 0
 
         if "Xrotation" in node.channels and index < len(frame_data): 
