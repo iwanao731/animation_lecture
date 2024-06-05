@@ -152,37 +152,46 @@ def draw_skeleton(ax, node, parent_position=None):
         draw_skeleton(ax, child, node.position)
 
 # ノードの位置と回転を更新する関数
-def update_node_position(node, frame_data, index, parent_position, parent_rotation):
-    if node.channels:
+def update_node_position(node, frame_data, index, parent_position, parent_rotation, is_root=False):
+    if is_root:
+        # ルートノードの場合の処理
+        x_pos, y_pos, z_pos = frame_data[:3]
+        x_rot, y_rot, z_rot = frame_data[3:6]
+
+        # 初期位置の設定
+        node.position = np.array([x_pos, y_pos, z_pos])
         
-        x_rot, y_rot, z_rot = 0, 0, 0
-
-        if "Xrotation" in node.channels and index < len(frame_data): 
-            x_rot = frame_data[index]
-            index += 1
-        if "Yrotation" in node.channels and index < len(frame_data):
-            y_rot = frame_data[index]
-            index += 1
-        if "Zrotation" in node.channels and index < len(frame_data):
-            z_rot = frame_data[index]
-            index += 1
-
-        # 回転の計算
-        local_rotation = R.from_euler('xyz', [x_rot, y_rot, z_rot], degrees=True)
-        global_rotation = parent_rotation * local_rotation
-
-        # 位置の計算
-        node.position = parent_position + parent_rotation.apply(np.array(node.offset))
-
+        # 初期回転の計算
+        global_rotation = R.from_euler('xyz', [x_rot, y_rot, z_rot], degrees=True)
+        
     else:
-        global_rotation = parent_rotation
-        node.position = parent_position + parent_rotation.apply(np.array(node.offset))
+        if node.channels:
+            x_rot, y_rot, z_rot = 0, 0, 0
+
+            if "Xrotation" in node.channels and index < len(frame_data): 
+                x_rot = frame_data[index]
+                index += 1
+            if "Yrotation" in node.channels and index < len(frame_data):
+                y_rot = frame_data[index]
+                index += 1
+            if "Zrotation" in node.channels and index < len(frame_data):
+                z_rot = frame_data[index]
+                index += 1
+
+            # 回転の計算
+            local_rotation = R.from_euler('xyz', [x_rot, y_rot, z_rot], degrees=True)
+            global_rotation = parent_rotation * local_rotation
+
+            # 位置の計算
+            node.position = parent_position + parent_rotation.apply(np.array(node.offset))
+
+        else:
+            global_rotation = parent_rotation
+            node.position = parent_position + parent_rotation.apply(np.array(node.offset))
 
     for child in node.children:
         index = update_node_position(child, frame_data, index, node.position, global_rotation)
     return index
-
-
 
 # アニメーションのフレームを更新する関数
 def update_skeleton(num, frames, ax, root):
@@ -199,7 +208,7 @@ def update_skeleton(num, frames, ax, root):
     parent_rotation = R.from_euler('xyz', frame_data[3:6], degrees=True)
     
     index = 6
-    update_node_position(root, frame_data, index, parent_position, parent_rotation)
+    update_node_position(root, frame_data, index, parent_position, parent_rotation,  is_root=True)
     
     draw_skeleton(ax, root, parent_position)
 
