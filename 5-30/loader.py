@@ -51,23 +51,19 @@ class BVHLoader:
             if not hierarchy_parsed:
                 print(f"Parsing hierarchy at line {i}: {line.strip()}")
                 self.root, i = self.parse_hierarchy(lines, i)
-                print(3)
                 if self.root is None:
                     raise ValueError("Failed to parse hierarchy")
                 print(f"Hierarchy parsed successfully with root: {self.root.name}")
-                print(5)
                 hierarchy_parsed = True
             i +=  1
             
     def parse_hierarchy(self, lines, i, level=0):
         line = lines[i].strip()
         parts = line.split()
-        print(f"parse_hierarchy: line {i}, parts: {parts}")
         node = None
 
         if parts[0] == "ROOT" or parts[0] == "JOINT":
             node = Node(parts[1])
-            print(f"Creating node: {node.name}")
             i += 1  # スキップして { の行を読み取る
             if lines[i].strip() != "{":
                 raise ValueError(f"Expected '{{' at line {i}, but found: {lines[i].strip()}")
