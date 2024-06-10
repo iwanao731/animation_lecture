@@ -29,9 +29,9 @@
   - Linear Blend Skinning(LBS)
   - Others: Advanced techniques
 - Challenges
-  - [] 2.1: Load/Export Mesh(.obj)
-  - [] 2.2: Blendshape animation
-  - [] 2.3: (Advanced) LBS animation
+  - [ ] 2.1: Load/Export Mesh(.obj)
+  - [ ] 2.2: Blendshape animation
+  - [ ] 2.3: (Advanced) LBS animation
 
 - 参考資料
   - バーテックスブレンディング [ [床井研究室](https://marina.sys.wakayama-u.ac.jp/~tokoi/?date=20091231) ]
@@ -42,11 +42,11 @@
 - 概要: モーションの補間やブレンド手法を知ろう。
   - SLERP
 - Challenges
-  - [] Motion segmentation based on fixed length (ex. 2 sec.)
-  - [] Angle
-  - [] Quaternion
-  - [] SLERP
-  - [] QLERP
+  - [ ] Motion segmentation
+  - [ ] Angle
+  - [ ] Quaternion
+  - [ ] SLERP
+  - [ ] QLERP
 
 ## Lecture 4: Motion Search / Motion Matching
 
@@ -55,9 +55,10 @@
   - Motion Graph
   - Motion Matching
 - Challenges:
-  - [] Motion Graph
+  - [ ] Motion Graph
 - Refereces:
   - Motion Graph, SIGGRAPH 2002 [ [paper](https://dl.acm.org/doi/10.1145/566654.566605) ]
+  - Motion Matching, GDC 2016 [ [YouTube](https://youtu.be/KSTn3ePDt50?si=hcQaGGFPFQz5BqgU) ]
 
 ## Lecture 5: Motion Clustering
 
@@ -66,8 +67,8 @@
   - Principal Component Analysis(PCA)
   - Varietional Auto Encoder(VAE)
 - Challenges
-  - [] PCA
-  - [] VAE
+  - [ ] PCA
+  - [ ] VAE
 
 ## 中間課題: これからの検索について考えよう
 
